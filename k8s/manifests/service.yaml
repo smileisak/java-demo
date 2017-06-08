@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: hello-java
+  name: hello-java
+spec:
+  ports:
+  - port: 8080
+    nodePort: 32014
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: hello-java
+  type: NodePort
