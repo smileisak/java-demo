@@ -6,7 +6,7 @@ metadata:
   name: hello-java
 
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       run: hello-java
@@ -21,15 +21,35 @@ spec:
         run: hello-java
     spec:
       containers:
-      - image: smile0x90/hello-java:v1
-        imagePullPolicy: Always
+      - image: smile0x90/hello-java:1.0
+        env:
+
+        - name: DB_USER
+          value: "db_user"
+        - name: DB_PASSWORD
+          value: "mysecret"
+        # - name: DB_URL
+        #   value: "jdbc:mysql://localhost:3306/sakila?profileSQL=true"
+        # - name: DB_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mysecret
+        #       key: username
+        # - name: DB_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mysecret
+        #       key: password
+        imagePullPolicy: Always #IfNotPresent
         name: hello-java
         ports:
         - containerPort: 8080
           protocol: TCP
-        resources: {}
-        terminationMessagePath: /dev/termination-log
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      securityContext: {}
+        #resources:
+          # requests:
+          #   memory: "64Mi"
+          #   cpu: "250m"
+          # limits:
+          #   memory: "128Mi"
+          #   cpu: "500m"
       terminationGracePeriodSeconds: 30
