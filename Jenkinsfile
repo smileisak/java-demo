@@ -1,44 +1,9 @@
-podTemplate(label: 'builder', containers: [
-    containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat'),
-    // containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.0', command: 'cat', ttyEnabled: true),
-    // containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:latest', command: 'cat', ttyEnabled: true)
-  ],
-  volumes: [
-    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-  ]) {
+
     node('mypod') {
 
-        stage('do some Docker work') {
-            container('docker') {
-
-                
-                    
-                    sh """
-                        docker ps -a 
-                        docker images
-                        """
-                 
-                }
-        
-        }
-
-        // stage('do some kubectl work') {
-        //     container('kubectl') {
-
-        //         withCredentials([[$class: 'UsernamePasswordMultiBinding', 
-        //                 credentialsId: 'dockerhub',
-        //                 usernameVariable: 'DOCKER_HUB_USER',
-        //                 passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                    
-        //             sh "kubectl get nodes"
-        //         }
-        //     }
-        // }
-        // stage('do some helm work') {
-        //     container('helm') {
-
-        //        sh "helm ls"
-        //     }
-        // }
-    }
+   kubernetes.pod('buildpod').withImage('maven').inside {
+    //for a single container you can avoid the .withNewContainer() thing.
+    git 'https://github.com/jenkinsci/kubernetes-pipeline.git'
+    sh 'mvn clean install'
 }
+    }
