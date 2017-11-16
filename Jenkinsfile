@@ -7,7 +7,7 @@ podTemplate(label: 'maven', containers: [
     stage('Build a Maven project') {
       git 'https://github.com/smileisak/java-demo.git'
       container('maven') {
-          sh 'cd complete && mvn -DskipTests  package'
+          sh 'mvn -version'
       }
     }
   }
