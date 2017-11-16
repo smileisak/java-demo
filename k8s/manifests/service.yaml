@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    run: hello-java
-  name: hello-java
+    run: demo-java
+  name: demo-java
 spec:
   ports:
   - port: 8080
@@ -11,5 +11,5 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    run: hello-java
+    run: demo-java
   type: NodePort
