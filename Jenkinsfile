@@ -1,17 +1,44 @@
 
-podTemplate(label: 'maven', containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.3.3', ttyEnabled: true, command: 'cat')
-  ]) {
 
-  node('maven') {
-    stage('Build a Maven project') {
-      git 'https://github.com/smileisak/java-demo.git'
-      container('maven') {
+pipeline {
+  agent {
+    kubernetes {
+      //cloud 'kubernetes'
+      label 'mypod'
+      containerTemplate {
+        name 'maven'
+        image 'maven:3.3.9-jdk-8-alpine'
+        ttyEnabled true
+        command 'cat'
+      }
+    }
+  }
+  stages {
+    stage('Run maven') {
+      steps {
+        container('maven') {
           sh 'mvn -version'
+        }
       }
     }
   }
 }
+
+
+
+// podTemplate(label: 'maven', containers: [
+//   containerTemplate(name: 'maven', image: 'maven:3.3.3', ttyEnabled: true, command: 'cat')
+//   ]) {
+
+//   node('maven') {
+//     stage('Build a Maven project') {
+//       git 'https://github.com/smileisak/java-demo.git'
+//       container('maven') {
+//           sh 'mvn -version'
+//       }
+//     }
+//   }
+// }
 
 
 // pipeline {
