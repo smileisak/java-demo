@@ -1,12 +1,17 @@
 
-podTemplate(label: 'mypod') {
-    node('mypod') {
-        stage('Run shell') {
-            sh 'echo hello world'
-        }
-    }
-}
+podTemplate(label: 'maven', containers: [
+  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
+  ]) {
 
+  node('maven') {
+    stage('Build a Maven project') {
+      git 'https://github.com/smileisak/java-demo.git'
+      container('maven') {
+          sh 'cd complete && mvn -DskipTests  package'
+      }
+    }
+  }
+}
 
 
 // pipeline {
