@@ -11,7 +11,6 @@
     sh 'mvn clean install'
 }
   }
-}
 
 
 // pipeline {
