@@ -10,7 +10,7 @@ podTemplate(label: 'mypod', containers: [
             git 'https://github.com/smileisak/java-demo.git'
             container('maven') {
                 stage('Build a Maven project') {
-                    sh 'mvn clean install'
+                    sh 'cd complete && mvn clean install'
                 }
             }
         }
