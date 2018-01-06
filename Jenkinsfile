@@ -6,7 +6,7 @@ podTemplate(label: 'mypod', containers: [
   ]) {
 
     node('mypod') {
-        stage('Get a Maven project') {
+        stage('Build Artifact') {
             git 'https://github.com/smileisak/java-demo.git'
             container('maven') {
                 stage('Build a Maven project') {
@@ -17,30 +17,3 @@ podTemplate(label: 'mypod', containers: [
 
     }
 }
-
-
-// pipeline {
-//     agent { docker 'maven:3.3.3' }
-//     stages {
-//       stage('discover') {
-//           steps {
-//               sh 'ls -al'
-//           }
-//       }
-//       // run unit test
-//       stage('unittest') {
-//           steps {
-//               sh 'cd complete && mvn test'
-//           }
-//       }
-//       // build jar file
-//       stage('build') {
-//           steps {
-//               sh 'ls -al'
-//               sh 'pwd'
-//               sh 'cd complete && mvn package'
-//           }
-//       }
-
-//     }
-// }
