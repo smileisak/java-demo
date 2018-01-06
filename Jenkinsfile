@@ -1,16 +1,21 @@
 
-podTemplate(label: 'maven', containers: [
-  containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
+
+
+podTemplate(label: 'mypod', containers: [
+    containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
   ]) {
 
-  node('maven') {
-    stage('Build a Maven project') {
-      git 'https://github.com/smileisak/java-demo.git'
-      container('maven') {
-          sh 'cd complete && mvn -DskipTests  package'
-      }
+    node('mypod') {
+        stage('Get a Maven project') {
+            git 'https://github.com/smileisak/java-demo.git'
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
     }
-  }
 }
 
 
