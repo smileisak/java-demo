@@ -6,11 +6,18 @@ podTemplate(label: 'mypod', containers: [
   ]) {
 
     node('mypod') {
-        stage('Build Artifact') {
+        stage('Run unit tests') {
             git 'https://github.com/smileisak/java-demo.git'
             container('maven') {
                 stage('Build a Maven project') {
-                    sh 'cd complete && mvn clean install'
+                    sh 'cd complete && mvn test' 
+                }
+            }
+        }
+        stage('Build Artifact') {
+            container('maven') {
+                stage('Build a Maven project') {
+                    sh 'cd complete && mvn install -DskipTests' 
                 }
             }
         }
