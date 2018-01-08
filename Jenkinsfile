@@ -8,8 +8,8 @@ podTemplate(
             name: 'maven',
             image: 'maven:3.3.9-jdk-8-alpine', 
             ttyEnabled: true, 
-            command: 'cat
-            '),
+            command: 'cat'
+            ),
         containerTemplate(
             name: 'docker', 
             image: 'docker:1.11', 
