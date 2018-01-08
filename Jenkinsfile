@@ -5,6 +5,11 @@ podTemplate(
     label: 'mypod', 
     containers: [
         containerTemplate(
+            name: 'kubectl',
+            image: 'lachlanevenson/k8s-kubectl:v1.8.0',
+            command: 'cat',
+            ttyEnabled: true),
+        containerTemplate(
             name: 'maven',
             image: 'maven:3.3.9-jdk-8-alpine', 
             ttyEnabled: true, 
@@ -52,6 +57,17 @@ podTemplate(
                     sh 'docker login --username=smile0x90 --password=$DOCKERHUB_PASSWORD  && docker push  smile0x90/demo-java:v1' 
 
                 }
+            }
+        }
+
+        stage('Deploy on k8s integration') {
+            container('kubectl') {
+                stage('Deploy on k8s integration') {
+                    //sh 'kubectl set image deploy/demo-java demo-java=smile0x90/demo-java:v1' 
+                    sh "kubectl get nodes"
+
+                }
+               
             }
         }
 
