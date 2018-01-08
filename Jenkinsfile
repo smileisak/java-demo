@@ -49,7 +49,7 @@ podTemplate(
 
                 }
                 stage('Push Docker images') {
-                    sh 'docker login --username=smile0x90 --password=$DOCKERHUB_PASSWORD  && docker push  smile0x90/demo-java:v1 .' 
+                    sh 'docker login --username=smile0x90 --password=$DOCKERHUB_PASSWORD  && docker push  smile0x90/demo-java:v1' 
 
                 }
             }
