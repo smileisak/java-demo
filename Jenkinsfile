@@ -43,7 +43,7 @@ podTemplate(
         }
 
         stage('Build  Docker Image') {
-            container('maven') {
+            container('docker') {
                 stage('Build Docker images') {
                     sh 'cd complete && docker build -t smile0x90/demo-java:v1 .' 
 
