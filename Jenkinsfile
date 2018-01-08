@@ -63,8 +63,8 @@ podTemplate(
         stage('Deploy on k8s integration') {
             container('kubectl') {
                 stage('Deploy on k8s integration') {
-                    //sh 'kubectl set image deploy/demo-java demo-java=smile0x90/demo-java:v1' 
-                    sh "kubectl get nodes"
+                    sh 'kubectl set image deploy/demo-java -n demo demo-java=smile0x90/demo-java:v1' 
+                    //sh "kubectl get nodes"
 
                 }
                
